@@ -1,0 +1,18 @@
+﻿<Page
+    x:Class="StreamSocketApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:StreamSocketApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Listen" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Click="StartListener_Click"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="112,45,0,0" VerticalAlignment="Top" Click="ConnectSocket_Click"/>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="234,45,0,0" VerticalAlignment="Top" Click="SendHello_Click"/>
+        <Canvas Name="VideoCanvas" Width="320" Height="320" Background="Gray" Margin="18,119,22,201" Visibility="Visible">
+            <MediaElement x:Name="playbackElement" Width="320" Height="320" Visibility="Visible"/>
+        </Canvas>
+    </Grid>
+</Page>

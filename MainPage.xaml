@@ -10,9 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Button Content="Listen" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Click="StartListener_Click"/>
         <Button Content="Connect" HorizontalAlignment="Left" Margin="112,45,0,0" VerticalAlignment="Top" Click="ConnectSocket_Click"/>
-        <Button Content="Send" HorizontalAlignment="Left" Margin="234,45,0,0" VerticalAlignment="Top" Click="SendHello_Click"/>
-        <Canvas Name="VideoCanvas" Width="320" Height="320" Background="Gray" Margin="18,119,22,201" Visibility="Visible">
-            <MediaElement x:Name="playbackElement" Width="320" Height="320" Visibility="Visible"/>
-        </Canvas>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="234,45,0,0" VerticalAlignment="Top" Click="Send_Click"/>
+        <Image HorizontalAlignment="Left" Height="257" Margin="10,166,0,0" VerticalAlignment="Top" Width="340" Name="imageElement"/>
     </Grid>
 </Page>

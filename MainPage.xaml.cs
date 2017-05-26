@@ -27,12 +27,11 @@ namespace StreamSocketApp
         MediaCapture mediaCapture;
         string serviceNameForConnect = "22112";
         string hostNameForConnect = "localhost";
-        NetworkAdapter adapter = null;
         StreamSocket clientSocket = null;
 
         public MainPage()
         {
-            this.InitializeComponent();            
+            this.InitializeComponent();
         }
 
         private async void StartListener_Click(object sender, RoutedEventArgs e)
@@ -46,12 +45,6 @@ namespace StreamSocketApp
 
         private async void ConnectSocket_Click(object sender, RoutedEventArgs e)
         {
-            // By default 'HostNameForConnect' is disabled and host name validation is not required. When enabling the
-            // text box validating the host name is required since it was received from an untrusted source 
-            // (user input). The host name is validated by catching ArgumentExceptions thrown by the HostName 
-            // constructor for invalid input.
-            // Note that when enabling the text box users may provide names for hosts on the Internet that require the
-            // "Internet (Client)" capability.
             HostName hostName;
 
             mediaCapture = new MediaCapture();
@@ -68,26 +61,10 @@ namespace StreamSocketApp
             }
 
             clientSocket = new StreamSocket();
-
-            // Save the socket, so subsequent steps can use it.
+                        
             try
             {
-                if (adapter == null)
-                {
-                    // Connect to the server (in our case the listener we created in previous step).
-                    await clientSocket.ConnectAsync(hostName, serviceNameForConnect);
-                }
-                else
-                {
-                    // Connect to the server (in our case the listener we created in previous step)
-                    // limiting traffic to the same adapter that the user specified in the previous step.
-                    // This option will be overriden by interfaces with weak-host or forwarding modes enabled.
-                    //await socket.ConnectAsync(
-                    //    hostName,
-                    //    ServiceNameForConnect.Text,
-                    //    SocketProtectionLevel.PlainSocket,
-                    //    adapter);
-                }
+                await clientSocket.ConnectAsync(hostName, serviceNameForConnect);
             }
             catch (Exception exception)
             {
@@ -123,7 +100,7 @@ namespace StreamSocketApp
                 await mediaCapture.CapturePhotoToStreamAsync(ImageEncodingProperties.CreateJpeg(), memoryStream);
 
                 await Task.Delay(TimeSpan.FromMilliseconds(18.288)); //60 fps
-                
+
                 memoryStream.Seek(0);
 
                 writer.WriteUInt32((uint)memoryStream.Size);
@@ -148,7 +125,7 @@ namespace StreamSocketApp
 
         private async void OnConnection(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
-            await Task.WhenAll(DownloadVideos(args));            
+            await Task.WhenAll(DownloadVideos(args));
         }
 
         public async Task DownloadVideos(StreamSocketListenerConnectionReceivedEventArgs args)
@@ -166,9 +143,7 @@ namespace StreamSocketApp
                     {
                         // The underlying socket was closed before we were able to read the whole data.
                         return;
-                    }
-
-                    // Read the string.
+                    }                    
                     uint stringLength = reader.ReadUInt32();
 
                     uint actualStringLength = await reader.LoadAsync(stringLength);
@@ -201,7 +176,7 @@ namespace StreamSocketApp
 
                     byte[] imageBytes = new byte[stream.Length];
 
-                    stream.ReadAsync(imageBytes, 0, imageBytes.Length);                    
+                    stream.ReadAsync(imageBytes, 0, imageBytes.Length);
 
                     InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream();
 
